@@ -54,6 +54,7 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data.SQLite">
       <HintPath>..\packages\System.Data.SQLite.Core.1.0.102.0\lib\net40\System.Data.SQLite.dll</HintPath>
@@ -93,6 +94,7 @@
     <Compile Include="Forms\FrmVolumeSelect.Designer.cs">
       <DependentUpon>FrmVolumeSelect.cs</DependentUpon>
     </Compile>
+    <Compile Include="Functions\ConfigHelper.cs" />
     <Compile Include="Functions\DbGenerator.cs" />
     <Compile Include="Functions\LogHelper.cs" />
     <Compile Include="Functions\MySQLiteHelper.cs" />
@@ -120,6 +122,7 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <None Include="App.config" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

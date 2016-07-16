@@ -5,7 +5,7 @@ using System.Data.SQLite;
 using System.Linq;
 using System.Text;
 
-namespace chenz.Functions
+namespace chenz
 {
     class DbGenerator
     {

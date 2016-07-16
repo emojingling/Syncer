@@ -26,7 +26,7 @@ namespace chenz
             string writeLine = string.Empty;
             try
             {
-                string canWrite = SycerSQLiteHelper.GetSetting("WriteErrLog").ToUpper();
+                string canWrite = ConfigHelper.ReadRecord("WriteErrLog");
                 if (canWrite.Equals("FALSE")) return;
                 //得到当前时间及文件路径
                 var dataTime = DateTime.Now;

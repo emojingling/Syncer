@@ -197,8 +197,6 @@ namespace chenz
             List<UsnEntry> fileList;
             var rtnCode = _usnJournal.GetFilesMatchingFilter(fileFilter, out fileList);
 
-            Cursor = Cursors.Arrow;
-
             FreshSearchResultsInvoke(rtnCode, fileList);
         }
 
@@ -208,8 +206,6 @@ namespace chenz
             List<UsnEntry> folderList;
             var rtnCode = _usnJournal.GetNtfsVolumeFolders(out folderList);
 
-            Cursor = Cursors.Arrow;
-
             FreshSearchResultsInvoke(rtnCode, folderList);
         }
 
@@ -218,6 +214,11 @@ namespace chenz
         /// <param name="entryList">显示项列表。</param>
         private void FreshSearchResultsInvoke(NtfsUsnJournal.UsnJournalReturnCode rtnCode, List<UsnEntry> entryList)
         {
+            this.Invoke(new TransAnythingDelegate((o) =>
+            {
+                Cursor = Cursors.Default;
+            }), new object());
+
             if (rtnCode == NtfsUsnJournal.UsnJournalReturnCode.USN_JOURNAL_SUCCESS)
             {
                 if (entryList.Count > 0)
