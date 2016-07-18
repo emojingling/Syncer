@@ -40,10 +40,6 @@ namespace chenz
         private delegate void TransUsnJournalReturnCodeDelegate(NtfsUsnJournal.UsnJournalReturnCode rtnCode);
         private delegate void TransAnythingDelegate(object anything);
 
-        private delegate void FillListBoxDelegate(NtfsUsnJournal.UsnJournalReturnCode rtnCode, List<UsnEntry> usnEntries, USN_JOURNAL_DATA newUsnState);
-        private delegate void FillListBoxWithFilesDelagate(NtfsUsnJournal.UsnJournalReturnCode rtnCode, List<UsnEntry> fileList);
-        private delegate void FillListBoxWithFoldersDelegate(NtfsUsnJournal.UsnJournalReturnCode rtnCode, List<UsnEntry> folders);
-
         #endregion
 
         #region constructor(s)
@@ -271,6 +267,5 @@ namespace chenz
         }
 
         #endregion
-
     }
 }

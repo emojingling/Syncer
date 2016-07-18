@@ -103,11 +103,16 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Functions\WINAPI.cs" />
+    <Compile Include="Structs\LinkedFile.cs" />
+    <Compile Include="Structs\SyncFile.cs" />
     <EmbeddedResource Include="Forms\FrmFileFilterStr.resx">
       <DependentUpon>FrmFileFilterStr.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\FrmFileSearcher.resx">
       <DependentUpon>FrmFileSearcher.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FrmMain.resx">
+      <DependentUpon>FrmMain.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\FrmVolumeSelect.resx">
       <DependentUpon>FrmVolumeSelect.cs</DependentUpon>

@@ -19,7 +19,7 @@ namespace chenz
 
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new FrmFileSearcher());
+            Application.Run(new FrmMain());
         }
     }
 }

@@ -292,11 +292,12 @@ namespace chenz
             return reader;
         }
 
-        public static DataTable GetDataTable(String inputFile, string sql)
+        public static DataTable GetDataTable(String inputFile, string tableName)
         {
             DataTable dt = new DataTable();
             SQLiteConnection cnn = null;
             SQLiteDataReader reader = null;
+            string sql = "SELECT * FROM " + tableName;
             try
             {
                 var dbConnection = String.Format("Data Source={0}", inputFile);
@@ -355,6 +356,69 @@ namespace chenz
                 if (cnn != null)
                 {
                     cnn.Close();
+                }
+            }
+            return dt;
+        }
+
+        public static DataTable GetDataTable(string tableName, SQLiteConnection conn)
+        {
+            DataTable dt = new DataTable();
+            SQLiteDataReader reader = null;
+            string sql = "SELECT * FROM " + tableName;
+            try
+            {
+                conn.Open();
+                SQLiteCommand mycommand = new SQLiteCommand(conn);
+                mycommand.CommandText = sql;
+                reader = mycommand.ExecuteReader();
+                dt.Load(reader);
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
+            }
+            finally
+            {
+                if (reader != null)
+                {
+                    reader.Close();
+                }
+                if (conn != null)
+                {
+                    conn.Close();
+                }
+            }
+            return dt;
+        }
+
+        public static DataTable GetDataTable(string sql, IList<SQLiteParameter> cmdparams, SQLiteConnection conn)
+        {
+            DataTable dt = new DataTable();
+            SQLiteDataReader reader = null;
+            try
+            {
+                conn.Open();
+                SQLiteCommand mycommand = new SQLiteCommand(conn);
+                mycommand.CommandText = sql;
+                mycommand.Parameters.AddRange(cmdparams.ToArray());
+                mycommand.CommandTimeout = 180;
+                reader = mycommand.ExecuteReader();
+                dt.Load(reader);
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
+            }
+            finally
+            {
+                if (reader != null)
+                {
+                    reader.Close();
+                }
+                if (conn != null)
+                {
+                    conn.Close();
                 }
             }
             return dt;
