@@ -57,7 +57,7 @@ namespace chenz
                 DataRow drAdd = _dtFileList.NewRow();
                 drAdd["ID"] = id;
                 drAdd["FileSetName"] = dr["FileSetName"].ToString();
-                drAdd["LastUpdateDate"] = dr["LastUpdateDate"].ToString();
+                drAdd["LastUpdateDate"] = DateTime.FromBinary(Convert.ToInt64(dr["LastUpdateDate"]));
                 drAdd["FileNum"] = dicFileNum[id];
                 drAdd["UpdateTimes"] = Convert.ToInt32(dr["UpdateTimes"]);
                 _dtFileList.Rows.Add(drAdd);
@@ -88,6 +88,21 @@ namespace chenz
         private void btnExit_Click(object sender, EventArgs e)
         {
             DialogResult = System.Windows.Forms.DialogResult.OK;
+            Close();
+        }
+
+        private void dgViewFileList_DoubleClick(object sender, EventArgs e)
+        {
+            if (dgViewFileList.SelectedRows == null || dgViewFileList.SelectedRows.Count == 0)
+                return;
+
+            SyncFile syncFile;
+            int id = Convert.ToInt32(dgViewFileList.CurrentRow.Cells["colID"].Value);
+            if (SycerSQLiteHelper.GetSyncFile(_conn, id, out syncFile) && syncFile != null)
+            {
+                FrmFileSet frm = new FrmFileSet(syncFile.FileSetName, syncFile.ListFullName);
+                frm.ShowDialog();
+            }
         }
     }
 }

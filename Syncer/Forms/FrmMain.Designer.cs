@@ -30,15 +30,15 @@
         {
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             this.dgViewFileList = new System.Windows.Forms.DataGridView();
-            this.btnUpdate = new System.Windows.Forms.Button();
-            this.btnUpdateAll = new System.Windows.Forms.Button();
-            this.btnSearcher = new System.Windows.Forms.Button();
-            this.btnExit = new System.Windows.Forms.Button();
             this.colID = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.colFileSetName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.colLastUpdateDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.colFileNum = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.colUpdateTimes = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.btnUpdate = new System.Windows.Forms.Button();
+            this.btnUpdateAll = new System.Windows.Forms.Button();
+            this.btnSearcher = new System.Windows.Forms.Button();
+            this.btnExit = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgViewFileList)).BeginInit();
             this.SuspendLayout();
             // 
@@ -68,6 +68,46 @@
             this.dgViewFileList.RowTemplate.Height = 23;
             this.dgViewFileList.Size = new System.Drawing.Size(778, 390);
             this.dgViewFileList.TabIndex = 0;
+            this.dgViewFileList.DoubleClick += new System.EventHandler(this.dgViewFileList_DoubleClick);
+            // 
+            // colID
+            // 
+            this.colID.DataPropertyName = "ID";
+            this.colID.FillWeight = 40F;
+            this.colID.HeaderText = "序号";
+            this.colID.Name = "colID";
+            this.colID.ReadOnly = true;
+            // 
+            // colFileSetName
+            // 
+            this.colFileSetName.DataPropertyName = "FileSetName";
+            this.colFileSetName.HeaderText = "文件集名称";
+            this.colFileSetName.Name = "colFileSetName";
+            this.colFileSetName.ReadOnly = true;
+            // 
+            // colLastUpdateDate
+            // 
+            this.colLastUpdateDate.DataPropertyName = "LastUpdateDate";
+            this.colLastUpdateDate.FillWeight = 80F;
+            this.colLastUpdateDate.HeaderText = "最后更新日期";
+            this.colLastUpdateDate.Name = "colLastUpdateDate";
+            this.colLastUpdateDate.ReadOnly = true;
+            // 
+            // colFileNum
+            // 
+            this.colFileNum.DataPropertyName = "FileNum";
+            this.colFileNum.FillWeight = 30F;
+            this.colFileNum.HeaderText = "文件数";
+            this.colFileNum.Name = "colFileNum";
+            this.colFileNum.ReadOnly = true;
+            // 
+            // colUpdateTimes
+            // 
+            this.colUpdateTimes.DataPropertyName = "UpdateTimes";
+            this.colUpdateTimes.FillWeight = 40F;
+            this.colUpdateTimes.HeaderText = "已更新次数";
+            this.colUpdateTimes.Name = "colUpdateTimes";
+            this.colUpdateTimes.ReadOnly = true;
             // 
             // btnUpdate
             // 
@@ -113,45 +153,6 @@
             this.btnExit.Text = "退出";
             this.btnExit.UseVisualStyleBackColor = true;
             this.btnExit.Click += new System.EventHandler(this.btnExit_Click);
-            // 
-            // colID
-            // 
-            this.colID.DataPropertyName = "ID";
-            this.colID.FillWeight = 40F;
-            this.colID.HeaderText = "序号";
-            this.colID.Name = "colID";
-            this.colID.ReadOnly = true;
-            // 
-            // colFileSetName
-            // 
-            this.colFileSetName.DataPropertyName = "FileSetName";
-            this.colFileSetName.HeaderText = "文件集名称";
-            this.colFileSetName.Name = "colFileSetName";
-            this.colFileSetName.ReadOnly = true;
-            // 
-            // colLastUpdateDate
-            // 
-            this.colLastUpdateDate.DataPropertyName = "LastUpdateDate";
-            this.colLastUpdateDate.FillWeight = 80F;
-            this.colLastUpdateDate.HeaderText = "最后更新日期";
-            this.colLastUpdateDate.Name = "colLastUpdateDate";
-            this.colLastUpdateDate.ReadOnly = true;
-            // 
-            // colFileNum
-            // 
-            this.colFileNum.DataPropertyName = "FileNum";
-            this.colFileNum.FillWeight = 30F;
-            this.colFileNum.HeaderText = "文件数";
-            this.colFileNum.Name = "colFileNum";
-            this.colFileNum.ReadOnly = true;
-            // 
-            // colUpdateTimes
-            // 
-            this.colUpdateTimes.DataPropertyName = "UpdateTimes";
-            this.colUpdateTimes.FillWeight = 40F;
-            this.colUpdateTimes.HeaderText = "已更新次数";
-            this.colUpdateTimes.Name = "colUpdateTimes";
-            this.colUpdateTimes.ReadOnly = true;
             // 
             // FrmMain
             // 

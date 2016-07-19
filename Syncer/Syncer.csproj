@@ -69,6 +69,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controls\FileInfoBox.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\FileInfoBox.Designer.cs">
+      <DependentUpon>FileInfoBox.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\FrmFileSet.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FrmFileSet.Designer.cs">
+      <DependentUpon>FrmFileSet.cs</DependentUpon>
+    </Compile>
     <Compile Include="Functions\CompareHelper.cs" />
     <Compile Include="Forms\FrmFileFilterStr.cs">
       <SubType>Form</SubType>
@@ -103,13 +115,20 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Functions\WINAPI.cs" />
+    <Compile Include="Structs\FileInfoLite.cs" />
     <Compile Include="Structs\LinkedFile.cs" />
     <Compile Include="Structs\SyncFile.cs" />
+    <EmbeddedResource Include="Controls\FileInfoBox.resx">
+      <DependentUpon>FileInfoBox.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\FrmFileFilterStr.resx">
       <DependentUpon>FrmFileFilterStr.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\FrmFileSearcher.resx">
       <DependentUpon>FrmFileSearcher.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FrmFileSet.resx">
+      <DependentUpon>FrmFileSet.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\FrmMain.resx">
       <DependentUpon>FrmMain.cs</DependentUpon>
