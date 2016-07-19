@@ -39,6 +39,7 @@
             this.btnUpdateAll = new System.Windows.Forms.Button();
             this.btnSearcher = new System.Windows.Forms.Button();
             this.btnExit = new System.Windows.Forms.Button();
+            this.btnAdd = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgViewFileList)).BeginInit();
             this.SuspendLayout();
             // 
@@ -112,7 +113,7 @@
             // btnUpdate
             // 
             this.btnUpdate.Font = new System.Drawing.Font("微软雅黑", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.btnUpdate.Location = new System.Drawing.Point(12, 408);
+            this.btnUpdate.Location = new System.Drawing.Point(171, 560);
             this.btnUpdate.Name = "btnUpdate";
             this.btnUpdate.Size = new System.Drawing.Size(153, 43);
             this.btnUpdate.TabIndex = 1;
@@ -123,7 +124,7 @@
             // btnUpdateAll
             // 
             this.btnUpdateAll.Font = new System.Drawing.Font("微软雅黑", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.btnUpdateAll.Location = new System.Drawing.Point(187, 408);
+            this.btnUpdateAll.Location = new System.Drawing.Point(330, 560);
             this.btnUpdateAll.Name = "btnUpdateAll";
             this.btnUpdateAll.Size = new System.Drawing.Size(153, 43);
             this.btnUpdateAll.TabIndex = 2;
@@ -134,7 +135,7 @@
             // btnSearcher
             // 
             this.btnSearcher.Font = new System.Drawing.Font("微软雅黑", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.btnSearcher.Location = new System.Drawing.Point(362, 408);
+            this.btnSearcher.Location = new System.Drawing.Point(661, 560);
             this.btnSearcher.Name = "btnSearcher";
             this.btnSearcher.Size = new System.Drawing.Size(153, 43);
             this.btnSearcher.TabIndex = 3;
@@ -146,7 +147,7 @@
             // 
             this.btnExit.DialogResult = System.Windows.Forms.DialogResult.OK;
             this.btnExit.Font = new System.Drawing.Font("微软雅黑", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.btnExit.Location = new System.Drawing.Point(637, 408);
+            this.btnExit.Location = new System.Drawing.Point(820, 560);
             this.btnExit.Name = "btnExit";
             this.btnExit.Size = new System.Drawing.Size(153, 43);
             this.btnExit.TabIndex = 4;
@@ -154,11 +155,23 @@
             this.btnExit.UseVisualStyleBackColor = true;
             this.btnExit.Click += new System.EventHandler(this.btnExit_Click);
             // 
+            // btnAdd
+            // 
+            this.btnAdd.Font = new System.Drawing.Font("微软雅黑", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.btnAdd.Location = new System.Drawing.Point(12, 560);
+            this.btnAdd.Name = "btnAdd";
+            this.btnAdd.Size = new System.Drawing.Size(153, 43);
+            this.btnAdd.TabIndex = 5;
+            this.btnAdd.Text = "添加维护行";
+            this.btnAdd.UseVisualStyleBackColor = true;
+            this.btnAdd.Click += new System.EventHandler(this.btnAdd_Click);
+            // 
             // FrmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(802, 458);
+            this.ClientSize = new System.Drawing.Size(985, 615);
+            this.Controls.Add(this.btnAdd);
             this.Controls.Add(this.btnExit);
             this.Controls.Add(this.btnSearcher);
             this.Controls.Add(this.btnUpdateAll);
@@ -183,5 +196,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn colLastUpdateDate;
         private System.Windows.Forms.DataGridViewTextBoxColumn colFileNum;
         private System.Windows.Forms.DataGridViewTextBoxColumn colUpdateTimes;
+        private System.Windows.Forms.Button btnAdd;
     }
 }

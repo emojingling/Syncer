@@ -67,6 +67,14 @@ namespace chenz
 
         }
 
+        private void btnAdd_Click(object sender, EventArgs e)
+        {
+            FrmFileSet frm = new FrmFileSet(null);
+            frm.ShowDialog();
+
+            //Todo 向数据库添加数据
+        }
+
         private void btnUpdate_Click(object sender, EventArgs e)
         {
             if (dgViewFileList.SelectedRows == null || dgViewFileList.SelectedRows.Count == 0)

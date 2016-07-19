@@ -77,15 +77,72 @@ namespace chenz
             }
             finally
             {
-                if (conn != null)conn.Close();
+                conn.Close();
             }
             return true;
         }
 
-        //public static bool UpdateSyncFile(SQLiteConnection conn, SyncFile syncFile)
-        //{
-        //
-        //}
+        /// <summary>更新SyncFile</summary>
+        /// <param name="conn">数据库连接</param>
+        /// <param name="syncFile">文件集信息</param>
+        /// <returns>操作是否成功</returns>
+        public static bool UpdateSyncFile(SQLiteConnection conn, SyncFile syncFile)
+        {
+            if (conn == null || syncFile == null) return false;
+            int countLinkedFile = syncFile.ListLinkedFile.Count;
+            System.Diagnostics.Debug.Assert(countLinkedFile >= 2);
+
+            try
+            {
+                //更新SyncFile表
+                List<string> sqls = new List<string>(countLinkedFile + 1);
+                string sqlSyncFile = string.Format(
+                        "UPDATE SyncFile SET FileSetName = '{0}', LastFileHash = '{1}', LastUpdatePath = '{2}', LastUpdateDate = {3}, UpdateTimes = {4} WHERE ID = {5}",
+                        syncFile.FileSetName, syncFile.LastFileHash, syncFile.LastUpdatePath, syncFile.LastUpdateDate,
+                        syncFile.UpdateTimes, syncFile.ID);
+                sqls.Add(sqlSyncFile);
+                //删除LinkedFile表中的过时信息
+                var dtLinkedFile = GetDataTable("LinkedFile", conn);
+                sqls.AddRange(from dr in dtLinkedFile.AsEnumerable()
+                    let id_SyncFile = Convert.ToInt32(dr["ID_SyncFile"])
+                    where id_SyncFile == syncFile.ID
+                    select Convert.ToInt32(dr["ID"])
+                    into id
+                    let haveId = syncFile.ListLinkedFile.Any(linkedFile => linkedFile.ID == id)
+                    where !haveId
+                    select string.Format("DELETE FROM LinkedFile WHERE ID = {0}", id));
+                //更新LinkedFile表
+                for (int i = 0; i < countLinkedFile; i++)
+                {
+                    LinkedFile linkedFile = syncFile.ListLinkedFile[i];
+                    string sql = (from dr in dtLinkedFile.AsEnumerable()
+                        let id = Convert.ToInt32(dr["ID"])
+                        let id_SyncFile = Convert.ToInt32(dr["ID_SyncFile"])
+                        where id == linkedFile.ID && id_SyncFile == linkedFile.ID_SyncFile
+                        select string.Format(
+                            "UPDATE LinkedFile SET FileName = '{0}', IsLastNewest = {1}, FilePath = '{2}', LastSyncDate = {3} WHERE ID = {4}", 
+                            linkedFile.FileName, linkedFile.IsLastNewest, linkedFile.FilePath, 
+                            linkedFile.LastSyncDate, id)).FirstOrDefault() 
+                            ?? string.Format(
+                            "INSERT INTO LinkedFile (ID_SyncFile, FileName, IsLastNewest, FilePath, LastSyncDate) VALUES ({0}, '{1}', {2}, '{3}', {4})",
+                            linkedFile.ID_SyncFile, linkedFile.FileName, linkedFile.IsLastNewest, linkedFile.FilePath,
+                            linkedFile.LastSyncDate);
+                    sqls.Add(sql);
+                }
+                //事务执行
+                return ExecuteTransSQL(sqls, conn);
+            }
+            catch (Exception ex)
+            {
+                LogHelper.WriteErrLog("UpdateSyncFile", ex);
+                return false;
+            }
+            finally
+            {
+                conn.Close();
+            }
+        
+        }
 
         /// <summary>得到设置项的值</summary>
         /// <param name="conn">数据库连接</param>
