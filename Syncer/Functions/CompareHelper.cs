@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Security.Cryptography;
-using System.Text;
 
 namespace chenz
 {
@@ -32,31 +31,29 @@ namespace chenz
             return result;
         }
 
-        /// <summary>判断两个文件信息是否具有相同的大小和创建、修改时间。</summary>
+        /// <summary>判断两个文件信息是否具有相同的大小</summary>
         /// <param name="fi1">第一个文件信息</param>
         /// <param name="fi2">第二个文件信息</param>
         /// <returns></returns>
-        public static bool IsFileSameSizeAndDate(FileInfo fi1, FileInfo fi2)
+        public static bool IsFileSameSize(FileInfo fi1, FileInfo fi2)
         {
             if (fi1 == null || fi2 == null) return false;
             if (!fi1.Exists || !fi2.Exists) return false;
             if (fi1.Length != fi2.Length) return false;
-            if (fi1.CreationTime != fi2.CreationTime) return false;
-            if (fi1.LastWriteTime != fi2.LastWriteTime) return false;
             return true;
         }
 
-        /// <summary>判断两个文件是否具有相同的大小和创建、修改时间。</summary>
+        /// <summary>判断两个文件是否具有相同的大小</summary>
         /// <param name="filePath1">第一个文件路径</param>
         /// <param name="filePath2">第二个文件路径</param>
         /// <returns></returns>
-        public static bool IsFileSameSizeAndDate(string filePath1, string filePath2)
+        public static bool IsFileSameSize(string filePath1, string filePath2)
         {
             if (string.IsNullOrWhiteSpace(filePath1) || string.IsNullOrWhiteSpace(filePath2))
                 return false;
             FileInfo fi1 = new FileInfo(filePath1);
             FileInfo fi2 = new FileInfo(filePath2);
-            return IsFileSameSizeAndDate(fi1, fi2);
+            return IsFileSameSize(fi1, fi2);
         }
 
         /// <summary>判断两个文件是否相同。</summary>
@@ -65,14 +62,28 @@ namespace chenz
         /// <returns></returns>
         public static bool IsFileSame(string filePath1, string filePath2)
         {
-            if (IsFileSameSizeAndDate(filePath1, filePath2) == false) return false;
+            if (filePath1.Equals(filePath2)) return true;
+            if (IsFileSameSize(filePath1, filePath2) == false) return false;
 
             //创建一个哈希算法对象
             using (HashAlgorithm hash = HashAlgorithm.Create())
             {
                 return CompareFileByHash(hash, filePath1, filePath2);
             }
-            
+        }
+
+        /// <summary>判断两个文件是否相同。</summary>
+        /// <param name="hash">哈希算法对象</param>
+        /// <param name="filePath1">第一个文件路径</param>
+        /// <param name="filePath2">第二个文件路径</param>
+        /// <returns></returns>
+        public static bool IsFileSame(HashAlgorithm hash, string filePath1, string filePath2)
+        {
+            if (filePath1.Equals(filePath2)) return true;
+            if (IsFileSameSize(filePath1, filePath2) == false) return false;
+
+            //利用哈希算法比较文件
+            return CompareFileByHash(hash, filePath1, filePath2);
         }
 
         /// <summary>根据哈希码判断两个文件是否相同</summary>
@@ -117,7 +128,7 @@ namespace chenz
                 {
                     string filePath1 = ienu1.Current;
                     string filePath2 = ienu2.Current;
-                    if (IsFileSameSizeAndDate(filePath1, filePath2) == false)
+                    if (IsFileSameSize(filePath1, filePath2) == false)
                     {
                         results[index] = false;
                     }

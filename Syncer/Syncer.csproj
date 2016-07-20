@@ -108,6 +108,7 @@
     </Compile>
     <Compile Include="Functions\ConfigHelper.cs" />
     <Compile Include="Functions\DbGenerator.cs" />
+    <Compile Include="Functions\FileSyncHelper.cs" />
     <Compile Include="Functions\LogHelper.cs" />
     <Compile Include="Functions\MySQLiteHelper.cs" />
     <Compile Include="Functions\NtfsUsnJournal.cs" />

@@ -1,10 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
 using System.Linq;
-using System.Text;
 using System.Windows.Forms;
 using System.IO;
 
@@ -12,12 +8,12 @@ namespace chenz
 {
     public partial class FrmFileSet : Form
     {
-        private int countBox = 0;
+        private int _countBox = 0;
         private List<FileInfoLite> _listFileInfo;
-        private int widthBox;
-        private int heightBox;
-        private int screenHeight;
-        private FileInfoBox[] fileInfoBoxs;
+        private int _widthBox;
+        private int _heightBox;
+        private int _screenHeight;
+        private FileInfoBox[] _fileInfoBoxs;
         private const int HeightDiv = 6;
         private const int LeftBox = 9;
         private const int TopFirstBox = 42;
@@ -64,20 +60,20 @@ namespace chenz
             if (fileSetName == null) fileSetName = string.Empty;
             FileSetName = fileSetName;
             Screen currentScreen = Screen.FromControl(this);
-            screenHeight = currentScreen.Bounds.Height;
+            _screenHeight = currentScreen.Bounds.Height;
 
             var fileInfoBox = new FileInfoBox(0);
-            widthBox = fileInfoBox.Width;
-            heightBox = fileInfoBox.Height;
-            this.Width = widthBox + 2 * LeftBox + Padding.Left + Padding.Right;
+            _widthBox = fileInfoBox.Width;
+            _heightBox = fileInfoBox.Height;
+            Width = _widthBox + 2 * LeftBox + Padding.Left + Padding.Right;
 
-            fileInfoBoxs = new FileInfoBox[MaxBoxCount];
+            _fileInfoBoxs = new FileInfoBox[MaxBoxCount];
         }
 
         /// <summary>调整窗体高度</summary>
         private void AdjustFrmHeight()
         {
-            Top = (screenHeight - Height) / 2;
+            Top = (_screenHeight - Height) / 2;
         }
 
         /// <summary>添加输入行</summary>
@@ -85,7 +81,7 @@ namespace chenz
         /// <param name="listFullName">文件完整路径列表</param>
         private void AddBoxs(int count, List<string> listFullName = null)
         {
-            int countCanAdd = MaxBoxCount - countBox;
+            int countCanAdd = MaxBoxCount - _countBox;
             if (countCanAdd <= 0) return;
             if (count > countCanAdd) count = countCanAdd;
 
@@ -106,20 +102,20 @@ namespace chenz
         /// <param name="fullPath">文件完整路径</param>
         private void AddBox(string fullPath = null)
         {
-            if (countBox >= 10) return;
+            if (_countBox >= 10) return;
 
-            Height += heightBox + HeightDiv;
-            int top = TopFirstBox + countBox * (heightBox + HeightDiv) + HeightDiv;
-            var fileInfoBox = new FileInfoBox(++countBox);
+            Height += _heightBox + HeightDiv;
+            int top = TopFirstBox + _countBox * (_heightBox + HeightDiv) + HeightDiv;
+            var fileInfoBox = new FileInfoBox(++_countBox);
             fileInfoBox.Left = LeftBox;
             fileInfoBox.Top = top;
             if (fullPath != null && fullPath.Contains('\\')) fileInfoBox.FullPath = fullPath;
             fileInfoBox.ButtonSelectPathClick += SelectPath;
             fileInfoBox.ButtonAddClick += AddBox;
             fileInfoBox.ButtonDeleteClick += DeleteBox;
-            fileInfoBoxs[countBox - 1] = fileInfoBox;
+            _fileInfoBoxs[_countBox - 1] = fileInfoBox;
 
-            this.Controls.Add(fileInfoBox);
+            Controls.Add(fileInfoBox);
 
             AdjustFrmHeight();
 
@@ -127,28 +123,28 @@ namespace chenz
         }
 
         /// <summary>删除输入行</summary>
-        /// <param name="count">被删除的行序号</param>
+        /// <param name="num">被删除的行序号</param>
         private void DeleteBox(int num)
         {
-            if (countBox <= 2) return;
+            if (_countBox <= 2) return;
 
-            this.Controls.Remove(fileInfoBoxs[num - 1]);
+            this.Controls.Remove(_fileInfoBoxs[num - 1]);
 
-            fileInfoBoxs[num - 1].Dispose();
-            fileInfoBoxs[num - 1] = null;
-            if (num != countBox)
+            _fileInfoBoxs[num - 1].Dispose();
+            _fileInfoBoxs[num - 1] = null;
+            if (num != _countBox)
             {
-                for (int i = num; i < countBox; i++)
+                for (int i = num; i < _countBox; i++)
                 {
-                    fileInfoBoxs[i - 1] = fileInfoBoxs[i];
-                    fileInfoBoxs[i - 1].Num--;
-                    fileInfoBoxs[i - 1].Top -= (heightBox + HeightDiv);
+                    _fileInfoBoxs[i - 1] = _fileInfoBoxs[i];
+                    _fileInfoBoxs[i - 1].Num--;
+                    _fileInfoBoxs[i - 1].Top -= (_heightBox + HeightDiv);
                 }
-                fileInfoBoxs[countBox - 1] = null;
+                _fileInfoBoxs[_countBox - 1] = null;
             }
 
-            Height -= (heightBox + HeightDiv);
-            countBox--;
+            Height -= (_heightBox + HeightDiv);
+            _countBox--;
 
             AdjustFrmHeight();
 
@@ -161,7 +157,7 @@ namespace chenz
         private void SelectPath(object sender, EventArgs e)
         {
             OpenFileDialog dlg = new OpenFileDialog();
-            dlg.Filter = "所有文件|*.*";
+            dlg.Filter = @"所有文件|*.*";
             dlg.RestoreDirectory = true;
             dlg.FilterIndex = 1;
             dlg.CheckPathExists = true;
@@ -177,6 +173,8 @@ namespace chenz
                 System.Diagnostics.Debug.Assert(fileInfoBox != null);
                 fileInfoBox.FileName = fileName;
                 fileInfoBox.FilePath = foldPath;
+
+                if (string.IsNullOrWhiteSpace(FileSetName)) FileSetName = fileName;
             }
         }
 
@@ -229,39 +227,43 @@ namespace chenz
         {
             if (string.IsNullOrWhiteSpace(FileSetName))
             {
-                MessageBox.Show("请输入文件集名称！");
+                MessageBox.Show(@"请输入文件集名称！");
                 return false;
             }
 
-            int validLines = countBox;
-            List<string> list = new List<string>(countBox);
-            for (int i = 0; i < countBox; i++)
+            int validLines = _countBox;
+            List<string> list = new List<string>(_countBox);
+            for (int i = 0; i < _countBox; i++)
             {
-                FileInfoBox fileInfoBox = fileInfoBoxs[i];
+                FileInfoBox fileInfoBox = _fileInfoBoxs[i];
                 if (string.IsNullOrWhiteSpace(FileSetName) || string.IsNullOrWhiteSpace(FileSetName))
                 {
                     validLines--;
                     continue;
                 }
                 FileInfo fileInfo;
-                if (!FileExist(fileInfoBox, out fileInfo))
+                if (!FileExist(fileInfoBox, out fileInfo) || fileInfo == null)
                 {
                     validLines--;
                     continue;
                 }
-                if (fileInfo != null && list.Contains(fileInfo.FullName))
+                if (list.Contains(fileInfo.FullName))
                 {
                     validLines--;
                     fileInfoBox.Clear();
                 }
                 else
                 {
+                    //移除只读属性
+                    if (File.GetAttributes(fileInfoBox.FullPath).ToString().IndexOf("ReadOnly", StringComparison.Ordinal) != -1)
+                        File.SetAttributes(fileInfoBox.FullPath, FileAttributes.Normal);
+                    //加入可同步列表
                     list.Add(fileInfo.FullName);
                 }
             }
             if (validLines < 2)
             {
-                MessageBox.Show("请至少输入两个完整的待同步文件信息！");
+                MessageBox.Show(@"请至少输入两个完整的待同步文件信息！");
                 return false;
             }
 
@@ -273,9 +275,9 @@ namespace chenz
         {
             if (ListFileInfo == null) ListFileInfo = new List<FileInfoLite>(MaxBoxCount);
             ListFileInfo.Clear();
-            for (int i = 0; i < countBox; i++)
+            for (int i = 0; i < _countBox; i++)
             {
-                FileInfoBox fileInfoBox = fileInfoBoxs[i];
+                FileInfoBox fileInfoBox = _fileInfoBoxs[i];
                 FileInfo fileInfo;
                 if (FileExist(fileInfoBox, out fileInfo) && fileInfo != null)
                 {
@@ -299,11 +301,16 @@ namespace chenz
 
         private void btnRemove_Click(object sender, EventArgs e)
         {
-            int validLines = countBox;
-            for (int i = 0; i < countBox; i++)
+            for (int i = 0; i < _countBox; i++)
             {
-                fileInfoBoxs[i].Clear();
+                _fileInfoBoxs[i].Clear();
             }
+            FileSetName = string.Empty;
+        }
+
+        private void btnInteliGetPaths_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

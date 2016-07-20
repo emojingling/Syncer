@@ -425,5 +425,33 @@ namespace chenz
         }
 
         #endregion
+
+        #region 数据库优化操作
+
+        /// <summary>更改表的下一个自增默认值</summary>
+        /// <param name="conn">数据库连接</param>
+        /// <param name="tableName">表名</param>
+        /// <param name="value">自增值</param>
+        /// <returns>操作是否成功</returns>
+        public static bool SetAutoIncr(SQLiteConnection conn, string tableName, int value = 0)
+        {
+            if (conn == null || string.IsNullOrWhiteSpace(tableName)) return false;
+            if (value < 0) value = 0;
+            string sql = String.Format("UPDATE sqlite_sequence SET seq = {0} WHERE name='{1}'", value, tableName);
+            return ExecuteSQL(sql, conn);
+        }
+
+        /// <summary>压缩数据库</summary>
+        /// <param name="conn">数据库连接</param>
+        /// <returns>操作是否成功</returns>
+        public static bool Vacuum(SQLiteConnection conn)
+        {
+            if (conn == null) return false;
+
+            string sql = "VACUUM";
+            return ExecuteSQL(sql, conn);
+        }
+
+        #endregion
     }
 }

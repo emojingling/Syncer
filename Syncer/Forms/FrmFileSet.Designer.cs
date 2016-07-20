@@ -33,6 +33,7 @@
             this.lblFileSet = new System.Windows.Forms.Label();
             this.tbFileSetName = new System.Windows.Forms.TextBox();
             this.btnRemove = new System.Windows.Forms.Button();
+            this.btnInteliGetPaths = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // btnOk
@@ -81,19 +82,32 @@
             // 
             this.btnRemove.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnRemove.Font = new System.Drawing.Font("宋体", 12F);
-            this.btnRemove.Location = new System.Drawing.Point(485, 1);
+            this.btnRemove.Location = new System.Drawing.Point(479, 1);
             this.btnRemove.Name = "btnRemove";
-            this.btnRemove.Size = new System.Drawing.Size(109, 32);
-            this.btnRemove.TabIndex = 3;
+            this.btnRemove.Size = new System.Drawing.Size(119, 32);
+            this.btnRemove.TabIndex = 4;
             this.btnRemove.Text = "清除";
             this.btnRemove.UseVisualStyleBackColor = true;
             this.btnRemove.Click += new System.EventHandler(this.btnRemove_Click);
+            // 
+            // btnInteliGetPaths
+            // 
+            this.btnInteliGetPaths.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnInteliGetPaths.Font = new System.Drawing.Font("宋体", 12F);
+            this.btnInteliGetPaths.Location = new System.Drawing.Point(354, 1);
+            this.btnInteliGetPaths.Name = "btnInteliGetPaths";
+            this.btnInteliGetPaths.Size = new System.Drawing.Size(119, 32);
+            this.btnInteliGetPaths.TabIndex = 3;
+            this.btnInteliGetPaths.Text = "智能获取路径";
+            this.btnInteliGetPaths.UseVisualStyleBackColor = true;
+            this.btnInteliGetPaths.Click += new System.EventHandler(this.btnInteliGetPaths_Click);
             // 
             // FrmFileSet
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(610, 103);
+            this.Controls.Add(this.btnInteliGetPaths);
             this.Controls.Add(this.btnRemove);
             this.Controls.Add(this.tbFileSetName);
             this.Controls.Add(this.lblFileSet);
@@ -116,5 +130,6 @@
         private System.Windows.Forms.Label lblFileSet;
         private System.Windows.Forms.TextBox tbFileSetName;
         private System.Windows.Forms.Button btnRemove;
+        private System.Windows.Forms.Button btnInteliGetPaths;
     }
 }

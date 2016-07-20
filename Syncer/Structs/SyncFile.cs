@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace chenz
 {
@@ -26,11 +25,7 @@ namespace chenz
 
         public int FileNum
         {
-            get
-            {
-                if (ListLinkedFile == null) return 0;
-                else return ListLinkedFile.Count;
-            }
+            get { return ListLinkedFile == null ? 0 : ListLinkedFile.Count; }
         }
 
         public List<string> ListFullName
@@ -39,10 +34,7 @@ namespace chenz
             {
                 if (ListLinkedFile == null) return null;
                 List<string> list = new List<string>(ListLinkedFile.Count);
-                foreach (var linkedFile in ListLinkedFile)
-                {
-                    list.Add(linkedFile.FullName);
-                }
+                list.AddRange(ListLinkedFile.Select(linkedFile => linkedFile.FullName));
                 return list;
             }
         }

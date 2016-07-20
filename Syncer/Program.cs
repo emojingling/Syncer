@@ -16,7 +16,6 @@ namespace chenz
             ConfigHelper.AddRecord("WriteErrLog", "true");
             ConfigHelper.AddRecord("SyncMode", "SyncToNewest");
 
-
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new FrmMain());

@@ -516,7 +516,7 @@ namespace chenz
                                     if (filterIsExt)                                //仅搜索后缀
                                     {
                                         string extension = Path.GetExtension(usnEntry.Name).ToLower();
-                                        if (0 == string.Compare(filter, "*"))
+                                        if (0 == string.CompareOrdinal(filter, "*"))
                                         {
                                             files.Add(usnEntry);
                                         }
@@ -707,14 +707,9 @@ namespace chenz
 
             if (bNtfsVolume)
             {
-                if (_usnJournalRootHandle.ToInt32() != WINAPI.INVALID_HANDLE_VALUE)
-                {
-                    usnRtnCode = QueryUsnJournal(ref usnJournalState);
-                }
-                else
-                {
-                    usnRtnCode = UsnJournalReturnCode.INVALID_HANDLE_VALUE;
-                }
+                usnRtnCode = _usnJournalRootHandle.ToInt32() != WINAPI.INVALID_HANDLE_VALUE
+                    ? QueryUsnJournal(ref usnJournalState)
+                    : UsnJournalReturnCode.INVALID_HANDLE_VALUE;
             }
 
             _elapsedTime = DateTime.Now - startTime;
@@ -831,14 +826,9 @@ namespace chenz
                             else
                             {
                                 WINAPI.GetLastErrorEnum lastWin32Error = (WINAPI.GetLastErrorEnum)Marshal.GetLastWin32Error();
-                                if (lastWin32Error == WINAPI.GetLastErrorEnum.ERROR_HANDLE_EOF)
-                                {
-                                    usnRtnCode = UsnJournalReturnCode.USN_JOURNAL_SUCCESS;
-                                }
-                                else
-                                {
-                                    usnRtnCode = ConvertWin32ErrorToUsnError(lastWin32Error);
-                                }
+                                usnRtnCode = lastWin32Error == WINAPI.GetLastErrorEnum.ERROR_HANDLE_EOF
+                                    ? UsnJournalReturnCode.USN_JOURNAL_SUCCESS
+                                    : ConvertWin32ErrorToUsnError(lastWin32Error);
                                 break;
                             }
 

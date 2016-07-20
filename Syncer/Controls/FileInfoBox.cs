@@ -1,10 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Drawing;
-using System.Data;
-using System.Linq;
-using System.Text;
 using System.Windows.Forms;
 
 namespace chenz
@@ -21,48 +16,27 @@ namespace chenz
         [Category("自定义"), Description("序号")]
         public int Num
         {
-            get
-            {
-                return Convert.ToInt32(lblNum.Text);
-            }
-            set
-            {
-                lblNum.Text = value.ToString();
-            }
+            get { return Convert.ToInt32(lblNum.Text); }
+            set { lblNum.Text = value.ToString(); }
         }
 
         [Category("自定义"), Description("文件名")]
         public string FileName
         {
-            get
-            {
-                return tbFileName.Text;
-            }
-            set
-            {
-                tbFileName.Text = value;
-            }
+            get { return tbFileName.Text; }
+            set { tbFileName.Text = value; }
         }
 
         [Category("自定义"), Description("文件路径")]
         public string FilePath
         {
-            get
-            {
-                return tbSelectPath.Text;
-            }
-            set
-            {
-                tbSelectPath.Text = value;
-            }
+            get { return tbSelectPath.Text; }
+            set { tbSelectPath.Text = value; }
         }
 
         public string FullPath
         {
-            get
-            {
-                return FilePath + "\\" + FileName;
-            }
+            get { return FilePath + "\\" + FileName; }
             set
             {
                 int index = value.LastIndexOf('\\');
