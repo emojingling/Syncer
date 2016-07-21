@@ -75,6 +75,12 @@
     <Compile Include="Controls\FileInfoBox.Designer.cs">
       <DependentUpon>FileInfoBox.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\FrmEverything.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FrmEverything.Designer.cs">
+      <DependentUpon>FrmEverything.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\FrmFileSet.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -108,6 +114,7 @@
     </Compile>
     <Compile Include="Functions\ConfigHelper.cs" />
     <Compile Include="Functions\DbGenerator.cs" />
+    <Compile Include="Functions\DriveHelper.cs" />
     <Compile Include="Functions\FileSyncHelper.cs" />
     <Compile Include="Functions\LogHelper.cs" />
     <Compile Include="Functions\MySQLiteHelper.cs" />
@@ -118,9 +125,13 @@
     <Compile Include="Functions\WINAPI.cs" />
     <Compile Include="Structs\FileInfoLite.cs" />
     <Compile Include="Structs\LinkedFile.cs" />
+    <Compile Include="Structs\NamePath.cs" />
     <Compile Include="Structs\SyncFile.cs" />
     <EmbeddedResource Include="Controls\FileInfoBox.resx">
       <DependentUpon>FileInfoBox.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FrmEverything.resx">
+      <DependentUpon>FrmEverything.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\FrmFileFilterStr.resx">
       <DependentUpon>FrmFileFilterStr.cs</DependentUpon>

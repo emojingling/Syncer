@@ -114,7 +114,8 @@ namespace chenz
 
         private void btnSearcher_Click(object sender, EventArgs e)
         {
-
+            FrmFileSearcher frm = new FrmFileSearcher();
+            frm.ShowDialog();
         }
 
         private void btnExit_Click(object sender, EventArgs e)
